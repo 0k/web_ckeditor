@@ -24,6 +24,7 @@ openerp.web_ckeditor = function (oe) {
 
         initialize_content: function() {
             this.setupFocus(this.$('textarea'));
+            this.editor = CKEDITOR.replace(this.name);
         },
 
         store_dom_value: function () {
@@ -45,8 +46,7 @@ openerp.web_ckeditor = function (oe) {
         render_value: function() {
             var show_value = this.format_value(this.get('value'), '');
             if (!this.get("effective_readonly")) {
-                this.$el.find('textarea').val(show_value);
-                this.editor = CKEDITOR.replace(this.name);
+                this.editor.setData(show_value);
             } else {
                 this.$(".oe_form_char_content").text(show_value);
             }
