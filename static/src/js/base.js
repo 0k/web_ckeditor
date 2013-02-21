@@ -1,4 +1,4 @@
-/*global: openerp */
+/*global: openerp, CKEDITOR */
 
 openerp.web_ckeditor = function (oe) {
 
@@ -24,7 +24,9 @@ openerp.web_ckeditor = function (oe) {
 
         initialize_content: function() {
             this.setupFocus(this.$('textarea'));
-            this.editor = CKEDITOR.replace(this.name);
+            if (!this.get('effective_readonly')) {
+                this.editor = CKEDITOR.replace(this.name);
+            }
         },
 
         store_dom_value: function () {
@@ -48,7 +50,7 @@ openerp.web_ckeditor = function (oe) {
             if (!this.get("effective_readonly")) {
                 this.editor.setData(show_value);
             } else {
-                this.$(".oe_form_char_content").text(show_value);
+                this.$(".oe_form_field_text").html(show_value);
             }
         },
 
