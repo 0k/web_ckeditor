@@ -33,9 +33,17 @@ openerp.web_ckeditor = function (oe) {
         },
 
         initialize_content: function() {
+            var self = this;
             this.setupFocus(this.$('textarea'));
             if (!this.get('effective_readonly')) {
                 this.editor = CKEDITOR.replace(this.name);
+                this.editor.on('dataReady', function() {
+                    self.$('iframe').contents()
+                        .find('[contenteditable="true"]')
+                        .on('change keyup', function() {
+                            self.trigger('changed_value');
+                        });
+                });
             }
         },
 
