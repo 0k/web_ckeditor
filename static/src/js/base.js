@@ -1,5 +1,15 @@
 /*global: openerp, CKEDITOR */
 
+/* CKEDITOR_BASEPATH is needed to locate javascript config file and language
+   files that are downloaded automatically by ckeditor.  The base path cannot
+   be computed dynamically when in "production" mode when all javascript
+   dependencies are concatened.
+
+   Note: Don't forget the ending slash !
+*/
+CKEDITOR_BASEPATH = '/web_ckeditor/static/lib/js/ckeditor/';
+
+
 openerp.web_ckeditor = function (oe) {
 
     var QWeb = oe.web.qweb,
