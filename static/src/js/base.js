@@ -9,6 +9,14 @@
 */
 CKEDITOR_BASEPATH = '/web_ckeditor/static/lib/js/ckeditor/';
 
+function destroy_ckeditor(instance) {
+    try {
+        this.editor.destroy(true);
+    } catch(e) {
+        console.log("Silenced a CKEditor destroy exception.");
+    }
+}
+
 
 openerp.web_ckeditor = function (oe) {
 
@@ -34,6 +42,9 @@ openerp.web_ckeditor = function (oe) {
 
         initialize_content: function() {
             var self = this;
+            if (this.editor)
+                destroy_ckeditor(this.editor);
+            this.editor = false;
             this.setupFocus(this.$('textarea'));
             if (!this.get('effective_readonly')) {
                 this.editor = CKEDITOR.replace(this.name);
@@ -111,7 +122,7 @@ openerp.web_ckeditor = function (oe) {
 
         destroy: function() {
             if (this.editor) {
-                this.editor.destroy();
+                destroy_ckeditor(this.editor);
                 this.editor = false;
             }
         }
