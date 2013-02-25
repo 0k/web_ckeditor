@@ -73,7 +73,8 @@ openerp.web_ckeditor = function (oe) {
         },
 
         is_syntax_valid: function() {
-            if (!this.get("effective_readonly") && this.editor.getData().length > 0) {
+            if (!this.get("effective_readonly") &&
+                this.editor && this.editor.getData().length > 0) {
                 try {
                     this.parse_value(this.editor.getData(), '');
                     return true;
@@ -106,6 +107,13 @@ openerp.web_ckeditor = function (oe) {
                 height: height,
                 width: width
             });
+        },
+
+        destroy: function() {
+            if (this.editor) {
+                this.editor.destroy();
+                this.editor = false;
+            }
         }
     });
 };
